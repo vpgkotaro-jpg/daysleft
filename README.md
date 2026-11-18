@@ -47,7 +47,7 @@ node tools/serve.mjs 8791        # then open http://localhost:8791/
 ## Test
 
 ```
-node --test                      # 48 tests: 33 parser tests (21 phrasings, 12 must-refuse), days-left math, emergency card text
+node --test                      # 48 tests: 39 parser tests (21 phrasings, 12 must-refuse, 6 behaviour checks), 9 days-left and emergency-card tests
 npm install && npm run eval      # OCR + parser accuracy on eval/images (needs the tesseract.js dev dependency)
 NODE_PATH=<dir with playwright> BASE=http://localhost:8791/ node e2e/e2e.cjs   # browser end-to-end
 ```
@@ -67,7 +67,7 @@ The e2e script scans all 3 samples through real OCR, confirms, checks sorting, h
 
 - OCR failures cluster on the small, important digits: at low resolution the quantity line was the only thing lost. A wrong number is worse than a missing one, so the parser returns "not found" and the UI makes the person type it.
 - `0`/`O` and `1`/`l` swaps inside words and numbers are the most common OCR error. Fixing them only in context (inside a word, or next to `QTY`) avoided turning real numbers into letters.
-- Ambiguity is the real parsing problem, not the happy path. 12 of my 33 parser tests are cases where the right answer is "do not guess" (PRN, ranges, conflicts).
+- Ambiguity is the real parsing problem, not the happy path. 12 of my 39 parser tests are cases where the right answer is "do not guess" (PRN, ranges, conflicts).
 - Frequencies need to be matched most-specific-first and blanked out once matched, otherwise "twice daily" also counts as "daily". Repeated phrases ("every morning ... every night") needed their own rule because two equal values would otherwise look consistent.
 - Re-rendering a list on `change` swallowed the next button click when the input lost focus (found by the e2e test). The warning threshold now updates on `input`.
 - Floating-point: 4 tablets at 1/7 per day must be 28 days, not 27, so values keep 6 decimals and floor with a tiny epsilon.
