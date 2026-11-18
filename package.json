@@ -1,0 +1,16 @@
+{
+  "name": "daysleft",
+  "version": "1.0.0",
+  "description": "Know which medicine runs out first, before an emergency. On-device OCR, no upload.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kotaro Kurosaki",
+  "scripts": {
+    "test": "node --test",
+    "eval": "node eval/eval.mjs",
+    "serve": "node tools/serve.mjs"
+  },
+  "devDependencies": {
+    "tesseract.js": "^5.1.1"
+  }
+}

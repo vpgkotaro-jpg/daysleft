@@ -1,0 +1,302 @@
+{
+  "psm": "3",
+  "n": 12,
+  "tally": {
+    "name": {
+      "ok": 12,
+      "wrongValue": 0,
+      "notFound": 0
+    },
+    "strength": {
+      "ok": 12,
+      "wrongValue": 0,
+      "notFound": 0
+    },
+    "quantity": {
+      "ok": 11,
+      "wrongValue": 0,
+      "notFound": 1
+    },
+    "dose": {
+      "ok": 12,
+      "wrongValue": 0,
+      "notFound": 0
+    },
+    "timesPerDay": {
+      "ok": 12,
+      "wrongValue": 0,
+      "notFound": 0
+    }
+  },
+  "allOk": 11,
+  "perDayOk": 12,
+  "byCond": {
+    "clean": {
+      "n": 3,
+      "all": 3
+    },
+    "lowres": {
+      "n": 3,
+      "all": 2
+    },
+    "noisy": {
+      "n": 3,
+      "all": 3
+    },
+    "rotate": {
+      "n": 3,
+      "all": 3
+    }
+  },
+  "rows": [
+    {
+      "file": "label1_clean.png",
+      "ocrConfidence": 93,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000123",
+        "JANE SAMPLEPERSON",
+        "METFORMIN HCL 500 MG TABLET",
+        "TAKE 1 TABLET BY MOUTH TWICE DAILY WITH MEALS",
+        "QTY: 60 30 DAY SUPPLY",
+        "DISCARD AFTER 12/31/2027 (sample data, fictional)"
+      ]
+    },
+    {
+      "file": "label1_lowres.jpg",
+      "ocrConfidence": 81,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "‘SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY Rut oo01z2",
+        "JANE SAMPLEPERSON",
+        "METFORMIN HCL 500 MG TABLET",
+        "TAKE 1 TABLET BY MOUTH TWICE DAILY WITH MEALS",
+        "QTY:60  30DAY SUPPLY"
+      ]
+    },
+    {
+      "file": "label1_noisy.jpg",
+      "ocrConfidence": 87,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000123",
+        "JANE SAMPLEPERSON",
+        "METFORMIN HCL 500 MG TABLET",
+        "TAKE 1 TABLET BY MOUTH TWICE DAILY WITH MEALS",
+        "QTY: 60 30 DAY SUPPLY",
+        "DISCARD AFTER 12/31/2027 (sample data, fictions)"
+      ]
+    },
+    {
+      "file": "label1_rotate.png",
+      "ocrConfidence": 92,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000123",
+        "JANE SAMPLEPERSON",
+        "METFORMIN HCL 500 MG TABLET",
+        "TAKE 1 TABLET BY MOUTH TWICE DAILY WITH MEALS",
+        "QTY: 60 30 DAY SUPPLY",
+        "DISCARD AFTER 12/31/2027 (sample data, fictional)"
+      ]
+    },
+    {
+      "file": "label2_clean.png",
+      "ocrConfidence": 92,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000456",
+        "John Q. Fictional",
+        "Amlodipine 5 mg tablets",
+        "Take one tablet by mouth every morning",
+        "Qty: 90 Refills: 2",
+        "DISCARD AFTER 12/31/2027 (sample data, fictional)"
+      ]
+    },
+    {
+      "file": "label2_lowres.jpg",
+      "ocrConfidence": 70,
+      "all": false,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "not found",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FTONAL PARMACY [rT",
+        "Som tons",
+        "Amlodipine 5 mg tablets.",
+        "Tak one tablet by mouth every morning",
+        "ayo Reflis 2"
+      ]
+    },
+    {
+      "file": "label2_noisy.jpg",
+      "ocrConfidence": 83,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000456",
+        "John Q. Fictional",
+        "Amlodipine 5 mg tablets",
+        "Take one tablet by mouth every morning",
+        "Qty: 90 Refills: 2",
+        "DISCARD AFTER 12/312027 (sample data. Acton)"
+      ]
+    },
+    {
+      "file": "label2_rotate.png",
+      "ocrConfidence": 89,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000456",
+        "John Q. Fictional",
+        "Amlodipine 5 mg tablets",
+        "Take one tablet by mouth every morning",
+        "Qty: 90 Refills: 2",
+        "DISCARD AFTER 12/31/2027 (sample data, fictional)"
+      ]
+    },
+    {
+      "file": "label3_clean.png",
+      "ocrConfidence": 93,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000789",
+        "ALEX TESTPATIENT",
+        "GABAPENTIN 300 MG CAPSULE",
+        "TAKE 1 CAPSULE BY MOUTH EVERY 8 HOURS",
+        "QTY:90 REFILLS: 1",
+        "DISCARD AFTER 12/31/2027 (sample data, fictional)"
+      ]
+    },
+    {
+      "file": "label3_lowres.jpg",
+      "ocrConfidence": 76,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "‘SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY Ru oooores",
+        "ALEX TEGTRATENT",
+        "GABAPENTIN 300 MG CAPSULE",
+        "TAKE 1 CAPSULE BY MOUTH EVERY 8 HOURS",
+        "QTY:90 REFILLS:"
+      ]
+    },
+    {
+      "file": "label3_noisy.jpg",
+      "ocrConfidence": 80,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000789",
+        "ALEX TESTPATIENT",
+        "GABAPENTIN 300 MG CAPSULE",
+        "TAKE 1 CAPSULE BY MOUTH EVERY 8 HOURS",
+        "QTY: 90 REFILLS: 1",
+        "DISCARD AFTER 12/31/2027 (sample data, fictional)"
+      ]
+    },
+    {
+      "file": "label3_rotate.png",
+      "ocrConfidence": 89,
+      "all": true,
+      "detail": {
+        "name": "ok",
+        "strength": "ok",
+        "quantity": "ok",
+        "dose": "ok",
+        "timesPerDay": "ok"
+      },
+      "lines": [
+        "SAMPLE - NOT A REAL PRESCRIPTION",
+        "FICTIONAL PHARMACY RX# 0000789",
+        "ALEX TESTPATIENT",
+        "GABAPENTIN 300 MG CAPSULE",
+        "TAKE 1 CAPSULE BY MOUTH EVERY 8 HOURS",
+        "QTY: 90 REFILLS: 1",
+        "DISCARD AFTER 12/31/2027 (sample data, fictional)"
+      ]
+    }
+  ]
+}

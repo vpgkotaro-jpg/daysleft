@@ -1,0 +1,5 @@
+{
+  "label1": { "name": "Metformin",     "strength": "500 mg", "quantity": 60, "dose": 1, "timesPerDay": 2 },
+  "label2": { "name": "Amlodipine",    "strength": "5 mg",   "quantity": 90, "dose": 1, "timesPerDay": 1 },
+  "label3": { "name": "Gabapentin",    "strength": "300 mg", "quantity": 90, "dose": 1, "timesPerDay": 3 }
+}

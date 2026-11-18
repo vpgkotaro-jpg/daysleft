@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DaysLeft - know which medicine runs out first</title>
+<meta name="description" content="Scan a pharmacy label on your device, see which medicine runs out first, and carry an emergency card. Nothing is uploaded.">
+<meta name="theme-color" content="#0f4c5c">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0f4c5c"/><path d="M9 17.5 14 22.5 23.5 10" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><h1>DaysLeft</h1><p>Know which medicine runs out first, before an emergency.</p></div>
+  </div>
+  <p class="safety" role="note"><strong>Not medical advice.</strong> No interaction checks. OCR can be wrong: always check the label. Everything stays on this device.</p>
+  <nav aria-label="Sections" class="tabs" id="tabs">
+    <button data-view="meds" aria-current="page">Medicines</button>
+    <button data-view="add">Scan or add</button>
+    <button data-view="card">Emergency card</button>
+    <button data-view="about">Safety and privacy</button>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+
+<!-- ============ MEDICINES ============ -->
+<section id="view-meds" aria-labelledby="h-meds">
+  <h2 id="h-meds" class="sr">Your medicines</h2>
+  <div id="headline" class="headline level-empty" role="status" aria-live="polite">
+    <p class="big" id="headline-text">Add a medicine to see how long your supply lasts</p>
+    <p class="sub" id="headline-sub"></p>
+  </div>
+  <div class="lead">
+    <label for="lead">Warn me when a medicine has</label>
+    <input id="lead" type="number" min="1" max="60" step="1" value="7" inputmode="numeric">
+    <span>days or fewer left (time to get a refill)</span>
+  </div>
+  <ol id="medlist" class="medlist" aria-label="Medicines, first to run out on top"></ol>
+  <p id="empty-note" class="empty">No medicines yet. <button class="link" data-goto="add">Scan a label or add one by hand.</button></p>
+</section>
+
+<!-- ============ ADD ============ -->
+<section id="view-add" hidden aria-labelledby="h-add">
+  <h2 id="h-add">Scan a label or add by hand</h2>
+  <div class="panel" id="scan-panel">
+    <h3>1. Read a pharmacy label with on-device AI</h3>
+    <p class="muted">Your photo is read by an OCR model running in this browser (Tesseract). It is never uploaded.</p>
+    <div class="row">
+      <label class="btn primary" for="file">Take or choose a photo</label>
+      <input id="file" type="file" accept="image/*" capture="environment" class="sr-input">
+      <button class="btn" id="manual-btn" type="button">Enter by hand instead</button>
+    </div>
+    <div class="samples" aria-label="Sample labels">
+      <p class="muted">Or try a sample label (fictional, clearly marked SAMPLE):</p>
+      <div class="sample-row">
+        <button class="sample" data-sample="samples/label1.png" type="button"><img src="samples/label1.png" alt="Sample label 1: Metformin" width="160"><span>Sample 1</span></button>
+        <button class="sample" data-sample="samples/label2.png" type="button"><img src="samples/label2.png" alt="Sample label 2: Amlodipine" width="160"><span>Sample 2</span></button>
+        <button class="sample" data-sample="samples/label3.png" type="button"><img src="samples/label3.png" alt="Sample label 3: Gabapentin" width="160"><span>Sample 3</span></button>
+      </div>
+    </div>
+    <div id="ocr-status" class="ocr-status" role="status" aria-live="polite" hidden>
+      <p id="ocr-msg">Starting...</p>
+      <progress id="ocr-bar" max="100" value="0"></progress>
+    </div>
+  </div>
+
+  <form id="review" class="panel" hidden novalidate>
+    <h3 id="review-title">2. Check every field</h3>
+    <p class="muted" id="review-hint">Nothing is saved until you confirm. Fix anything that does not match the label.</p>
+    <div id="review-image" class="review-image" hidden></div>
+    <ul id="warnings" class="warnings" hidden></ul>
+
+    <div class="field" data-f="name">
+      <label for="f-name">Medicine name</label>
+      <input id="f-name" autocomplete="off" required>
+      <div class="meta"></div>
+    </div>
+    <div class="field" data-f="strength">
+      <label for="f-strength">Strength (optional)</label>
+      <input id="f-strength" autocomplete="off" placeholder="e.g. 500 mg">
+      <div class="meta"></div>
+    </div>
+    <div class="field" data-f="quantity">
+      <label for="f-onhand">Units on hand now (tablets, capsules...)</label>
+      <input id="f-onhand" type="number" min="0" step="any" inputmode="decimal" required>
+      <div class="meta"></div>
+    </div>
+    <div class="grid2">
+      <div class="field" data-f="dose">
+        <label for="f-dose">Units per dose</label>
+        <input id="f-dose" type="number" min="0" step="any" inputmode="decimal" required>
+        <div class="meta"></div>
+      </div>
+      <div class="field" data-f="timesPerDay">
+        <label for="f-times">Doses per day</label>
+        <input id="f-times" type="number" min="0" step="any" inputmode="decimal" required>
+        <div class="meta"></div>
+      </div>
+    </div>
+    <p id="preview-calc" class="calc" aria-live="polite"></p>
+    <label class="check"><input type="checkbox" id="f-confirm"> I checked these values against the label on my medicine.</label>
+    <p id="form-error" class="error" role="alert" hidden></p>
+    <div class="row">
+      <button class="btn primary" id="save-btn" type="submit" disabled>Confirm and add</button>
+      <button class="btn" id="cancel-btn" type="button">Cancel</button>
+    </div>
+  </form>
+</section>
+
+<!-- ============ CARD ============ -->
+<section id="view-card" hidden aria-labelledby="h-card">
+  <h2 id="h-card">Emergency card</h2>
+  <div class="panel no-print">
+    <p class="muted">Type what you want on the card. It is saved on this device only.</p>
+    <div class="field"><label for="c-name">Name</label><input id="c-name" autocomplete="name"></div>
+    <div class="field"><label for="c-allergies">Allergies</label><input id="c-allergies" placeholder="e.g. penicillin"></div>
+    <div class="field"><label for="c-contact">Emergency contact</label><input id="c-contact" placeholder="Name and phone number"></div>
+  </div>
+  <div class="sheet" id="sheet">
+    <h3>Emergency card</h3>
+    <pre id="card-text" aria-label="Emergency card text"></pre>
+    <div id="qr" class="qr" aria-label="QR code with the card text"></div>
+    <p id="qr-note" class="muted small"></p>
+  </div>
+  <div class="row no-print">
+    <button class="btn primary" id="print-btn" type="button">Print</button>
+    <button class="btn" id="txt-btn" type="button">Download .txt</button>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="view-about" hidden aria-labelledby="h-about">
+  <h2 id="h-about">Safety and privacy</h2>
+  <div class="panel">
+    <ul class="plain">
+      <li><strong>No medical advice.</strong> DaysLeft only does arithmetic: units on hand divided by units per day. It does not check interactions or doses.</li>
+      <li><strong>OCR can be wrong.</strong> Blur, glare and curved bottles cause misreads. You confirm every field, and the app shows the exact text it read.</li>
+      <li><strong>Your data stays here.</strong> Photos are read in your browser and then discarded. Medicines and the card are stored in this browser's localStorage. No accounts, no analytics, no server.</li>
+      <li><strong>Works offline</strong> after the first scan, because the OCR model is served from this site and cached.</li>
+      <li><strong>Why:</strong> after the 2024 Noto Peninsula earthquake, a medical team found that 31 of about 300 people at one shelter would run out of oral medicine within 7 days, and nobody knew who until they asked each person (J Nippon Med Sch medical association journal 2024;20(3):156).</li>
+    </ul>
+    <p class="muted small">Built with help from Claude (Anthropic) as an AI coding assistant. OCR: tesseract.js (Apache-2.0). QR: qrcode-generator (MIT). Source and licenses are in the repository.</p>
+  </div>
+  <div class="panel danger">
+    <h3>Delete all data</h3>
+    <p class="muted">Removes every medicine, setting and card detail from this browser.</p>
+    <div class="row" id="wipe-row">
+      <button class="btn danger" id="wipe-btn" type="button">Delete all data</button>
+    </div>
+    <div class="row" id="wipe-confirm" hidden>
+      <span>Really delete everything?</span>
+      <button class="btn danger" id="wipe-yes" type="button">Yes, delete</button>
+      <button class="btn" id="wipe-no" type="button">Cancel</button>
+    </div>
+    <p id="wipe-done" class="ok" role="status" hidden>All data deleted.</p>
+  </div>
+</section>
+</main>
+<footer class="foot no-print">DaysLeft by Kotaro Kurosaki. MIT license. STEM2Connect AI Hackathon 2026, Healthcare track.</footer>
+
+<script src="vendor/qrcode.js"></script>
+<script src="vendor/tesseract/tesseract.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
