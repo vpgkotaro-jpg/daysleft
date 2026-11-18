@@ -87,7 +87,8 @@ progress{width:100%;height:14px;accent-color:var(--brand)}
 .check{display:flex;gap:10px;align-items:flex-start;font-weight:600;margin:10px 0}
 .check input{width:22px;height:22px;margin-top:2px;flex:none}
 .error{color:var(--out);font-weight:600;margin:6px 0}
-.ok{color:var(--ok);font-weight:600}
+.msg-ok{color:var(--ok);font-weight:600}
+.fixform[hidden],.row[hidden]{display:none}
 .plain{padding-left:20px;margin:0 0 12px}.plain li{margin-bottom:8px}
 .sheet{background:#fff;border:2px solid var(--ink);border-radius:var(--r);padding:16px;margin-bottom:16px}
 .sheet h3{margin-top:0}

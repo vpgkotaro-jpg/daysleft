@@ -58,6 +58,7 @@ const step = s => console.log('ok -', s);
   assert.ok((await page.getAttribute('#headline', 'class')).includes('level-ok'));
   step('lead time adjustable');
 
+  assert.ok(await page.locator('li [data-fix]').first().isHidden(), 'fix form hidden by default');
   await page.click('li:has-text("Gabapentin") [data-act=took]');
   assert.match(await page.textContent('li:has-text("Gabapentin") .days'), /^6\s*days left/);
   assert.ok(await page.locator('li:has-text("Gabapentin") [data-act=took]').isDisabled());

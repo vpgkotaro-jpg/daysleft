@@ -1,5 +1,5 @@
 // Offline support. App code: network first, cache fallback. Big vendor files and samples: cache on first use.
-const CACHE = 'daysleft-v1';
+const CACHE = 'daysleft-v2';
 const SHELL = ['./', 'index.html', 'style.css', 'icon.svg', 'js/app.js', 'js/parser.js', 'js/daysleft.js', 'js/emergency.js', 'js/ocr.js', 'js/storage.js', 'vendor/qrcode.js', 'vendor/tesseract/tesseract.min.js'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
